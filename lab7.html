@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobile menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="mobile-menu">
+        <h1>Mobile menu</h1>
+
+    <div class="menu">
+        <li><a href="#">Hi!</a></li>
+        <div class="btn-menu" onclick="burgerMenu(this)">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+           <div class="bar3"></div>
+        </div>
+    </div>
+    </div>
+
+
+   <script>
+        let btnMenu = document.querySelector(".btn-menu");
+        let ulMenu = document.querySelector(".menu"); 
+
+        function dropDown() {
+            if (btnMenu.style.display == 'block') {
+                btnMenu.style.display = "inline-block";
+            } else {
+                btnMenu.style.display = 'block'
+            }
+        }
+        btnMenu.addEventListener("click", function () {
+            dropDown();
+            if (btnMenu.style.display == "block") {
+                ulMenu.style.cssText = 'transform: translateX(' + 0 + 'px)';
+            } else {
+                ulMenu.style.cssText = 'transform: translateX(' + -350 + 'px)';
+            }
+        });
+
+        function burgerMenu(icon) {
+        icon.classList.toggle("change");}
+
+
+
+    let mobileMenu = document.querySelector('.mobile-menu')
+    let action = false;
+    let coords = {
+        distance: 0,
+        startCoords: 0,
+        currentCoords: 0
+    }
+    let save = -350;
+    function boxController(coords) {
+        ulMenu.style.cssText = 'transform: translateX(' + coords.distance + 'px)';
+    }
+    mobileMenu.addEventListener('mousedown', function(e) {
+    coords.startCoords = e.clientX;
+    action = true;
+    });
+
+mobileMenu.addEventListener('mouseup', function(e) {
+    action = false;
+    save = coords.distance;
+    if (coords.distance >= -200 || coords.distance == 0) {
+        menu.style.cssText = 'transform: translateX(' + 0 + 'px)';
+    } else {
+        menu.style.cssText = 'transform: translateX(' + -350 + 'px)';
+        save = -350;
+    }
+    console.log(e.target);
+});
+
+mobileMenu.addEventListener('mousemove', function(e) {
+    if (action) {
+        coords.currentCoords = e.clientX;
+        coords.distance = save + coords.currentCoords - coords.startCoords;
+        coords.distance = (coords.distance >= 0) ? 0 : coords.distance;
+        coords.distance = (coords.distance <= -350) ? -350 : coords.distance;
+        boxController(coords);
+    }
+});
+
+</script>
+</body>
+</html>
