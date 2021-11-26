@@ -12,49 +12,40 @@
         <h1>Mobile menu</h1>
 
     <div class="menu">
+        <button class="openbutton" id="text">≡</button>
+        <button class="closebutton" id="text">&#10006;</button>
         <li><a href="#">Hi!</a></li>
-        <div class="btn-menu" onclick="burgerMenu(this)">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-           <div class="bar3"></div>
-        </div>
     </div>
     </div>
 
 
    <script>
-        let btnMenu = document.querySelector(".btn-menu");
+        let mobileMenu = document.querySelector(".mobile-menu");
         let ulMenu = document.querySelector(".menu"); 
+        let openbutton = document.querySelector('.openbutton');
+        let closebutton = document.querySelector('.closebutton');
 
-        function dropDown() {
-            if (btnMenu.style.display == 'block') {
-                btnMenu.style.display = "inline-block";
-            } else {
-                btnMenu.style.display = 'block'
-            }
+        let action = false;
+        let coords = {
+            distance: 0,
+            startCoords: 0,
+            currentCoords: 0
         }
-        btnMenu.addEventListener("click", function () {
-            dropDown();
-            if (btnMenu.style.display == "block") {
-                ulMenu.style.cssText = 'transform: translateX(' + 0 + 'px)';
-            } else {
-                ulMenu.style.cssText = 'transform: translateX(' + -350 + 'px)';
-            }
+        let save = -350;
+
+        openbutton.addEventListener('click', function(e){
+           openbutton.style.visibility = 'hidden';
+           closebutton.style.visibility = 'visible';
+           ulMenu.style.cssText = 'transform: translateX(' + 0 + 'px)';
         });
 
-        function burgerMenu(icon) {
-        icon.classList.toggle("change");}
+        closebutton.addEventListener('click', function(e){
+           openbutton.style.visibility = 'visible';
+           closebutton.style.visibility = 'hidden';
+           ulMenu.style.cssText = 'transform: translateX(' + -350 + 'px)';
+        });
 
 
-
-    let mobileMenu = document.querySelector('.mobile-menu')
-    let action = false;
-    let coords = {
-        distance: 0,
-        startCoords: 0,
-        currentCoords: 0
-    }
-    let save = -350;
     function boxController(coords) {
         ulMenu.style.cssText = 'transform: translateX(' + coords.distance + 'px)';
     }
@@ -67,9 +58,9 @@ mobileMenu.addEventListener('mouseup', function(e) {
     action = false;
     save = coords.distance;
     if (coords.distance >= -200 || coords.distance == 0) {
-        menu.style.cssText = 'transform: translateX(' + 0 + 'px)';
+        ulMenu.style.cssText = 'transform: translateX(' + 0 + 'px)';
     } else {
-        menu.style.cssText = 'transform: translateX(' + -350 + 'px)';
+        ulMenu.style.cssText = 'transform: translateX(' + -350 + 'px)';
         save = -350;
     }
     console.log(e.target);
